@@ -1,5 +1,6 @@
 import React, { useCallback, useLayoutEffect, useState } from 'react';
 import { Text, View } from 'react-native';
+import Toast from 'react-native-root-toast';
 import { useDispatch } from 'react-redux';
 import FilterSwitch from '../../components/FilterSwitch';
 import HeaderButton from '../../components/HeaderButton';
@@ -23,6 +24,7 @@ function FiltersScreen({ navigation }) {
     };
 
     dispatch(setFilters(appliedFilters));
+    Toast.show('Filters updated!');
   }, [isGlutenFree, isLactoseFree, isVegan, isVegetarian, dispatch]);
 
   useLayoutEffect(() => {
