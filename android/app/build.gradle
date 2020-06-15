@@ -129,7 +129,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.mealapp"
+        applicationId "com.mealsapp"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
