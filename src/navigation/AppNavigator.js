@@ -124,7 +124,7 @@ export default function AppNavigator() {
         initialRouteName="TabNavigator"
         drawerContentOptions={{
           activeTintColor: Colors.accentColor,
-          labelStyle: { fontFamily: 'OpenSans-Regular' },
+          labelStyle: { fontFamily: 'OpenSans-Regular', fontWeight: 'normal' },
         }}>
         <Drawer.Screen
           name="TabNavigator"
