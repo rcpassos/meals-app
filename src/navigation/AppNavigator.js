@@ -3,6 +3,8 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { Text } from 'react-native';
 import 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import '../config/StatusBarConfig';
@@ -31,23 +33,25 @@ const defaultScreenOptions = {
 };
 
 function MealsNavigator() {
+  const { t, i18n } = useTranslation();
+
   return (
     <NavigationContainer independent>
       <Stack.Navigator screenOptions={defaultScreenOptions}>
         <Stack.Screen
           name="Categories"
           component={CategoriesScreen}
-          options={{ title: 'Categories' }}
+          options={{ title: t('categories') }}
         />
         <Stack.Screen
           name="CategoryMeals"
           component={CategoryMealsScreen}
-          options={{ title: 'Meals' }}
+          options={{ title: t('meals') }}
         />
         <Stack.Screen
           name="MealDetail"
           component={MealDetailScreen}
-          options={{ title: 'Meal Detail' }}
+          options={{ title: t('meal_detail') }}
         />
       </Stack.Navigator>
     </NavigationContainer>
@@ -55,18 +59,20 @@ function MealsNavigator() {
 }
 
 function FavoritesNavigator() {
+  const { t, i18n } = useTranslation();
+
   return (
     <NavigationContainer independent>
       <Stack.Navigator screenOptions={defaultScreenOptions}>
         <Stack.Screen
           name="Favorites"
           component={FavoritesScreen}
-          options={{ title: 'Favorites' }}
+          options={{ title: t('favorites') }}
         />
         <Stack.Screen
           name="MealDetail"
           component={MealDetailScreen}
-          options={{ title: 'Meal Detail' }}
+          options={{ title: t('meal_detail') }}
         />
       </Stack.Navigator>
     </NavigationContainer>
@@ -74,13 +80,15 @@ function FavoritesNavigator() {
 }
 
 function FiltersNavigator() {
+  const { t, i18n } = useTranslation();
+
   return (
     <NavigationContainer independent>
       <Stack.Navigator screenOptions={defaultScreenOptions}>
         <Stack.Screen
           name="Filters"
           component={FiltersScreen}
-          options={{ title: 'Filters' }}
+          options={{ title: t('filters') }}
         />
       </Stack.Navigator>
     </NavigationContainer>
@@ -88,6 +96,8 @@ function FiltersNavigator() {
 }
 
 function TabNavigator() {
+  const { t, i18n } = useTranslation();
+
   return (
     <NavigationContainer independent>
       <Tab.Navigator
@@ -102,6 +112,21 @@ function TabNavigator() {
             }
 
             return <Icon name={iconName} size={size} color={color} />;
+          },
+          tabBarLabel: ({ color, size }) => {
+            let tabLabel;
+
+            if (route.name === 'Meals') {
+              tabLabel = t('meals');
+            } else if (route.name === 'Favorites') {
+              tabLabel = t('favorites');
+            }
+
+            return (
+              <Text size={size} style={{ color, fontSize: size }}>
+                {tabLabel}
+              </Text>
+            );
           },
         })}
         tabBarOptions={{
@@ -118,6 +143,8 @@ function TabNavigator() {
 }
 
 export default function AppNavigator() {
+  const { t, i18n } = useTranslation();
+
   return (
     <NavigationContainer>
       <Drawer.Navigator
@@ -129,9 +156,13 @@ export default function AppNavigator() {
         <Drawer.Screen
           name="TabNavigator"
           component={TabNavigator}
-          options={{ drawerLabel: 'Meals' }}
+          options={{ drawerLabel: t('meals') }}
         />
-        <Drawer.Screen name="Filters" component={FiltersNavigator} />
+        <Drawer.Screen
+          name="Filters"
+          component={FiltersNavigator}
+          options={{ drawerLabel: t('filters') }}
+        />
       </Drawer.Navigator>
     </NavigationContainer>
   );

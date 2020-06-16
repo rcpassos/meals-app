@@ -16,14 +16,7 @@ This project was created with **React Native CLI**
 
 - [React Navigation](https://reactnavigation.org/)
 - [Redux](https://redux.js.org/)
+- [react-i18next](https://react.i18next.com/)
 - [react-native-screens](https://github.com/software-mansion/react-native-screens)
 - [Vector Icons](https://github.com/oblador/react-native-vector-icons)
 - [react-native-splash-screen](https://github.com/crazycodeboy/react-native-splash-screen)
-
-## Backlog
-
-- [x] AppIcon and SplashScreen
-
-- [ ] Remove hardcoded strings
-
-- [ ] Update _react-native-root-toast_ package to remove warnings

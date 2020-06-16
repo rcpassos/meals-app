@@ -3,6 +3,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { enableScreens } from 'react-native-screens';
 import { Provider } from 'react-redux';
 import { combineReducers, createStore } from 'redux';
+import './i18n';
 import AppNavigator from './navigation/AppNavigator';
 import mealsReducer from './store/reducers/meals';
 

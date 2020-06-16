@@ -1,0 +1,13 @@
+{
+  "filters": "Filters",
+  "meals": "Meals",
+  "favorites": "Favorites",
+  "meal_detail": "Metal Detail",
+  "categories": "Categories",
+  "no_meals_found": "No favorite meals found. Start adding some!",
+  "filters_updated": "Filters updated!",
+  "gluten_free": "Gluten-free",
+  "lactose_free": "Lactose-free",
+  "vegan": "Vegan",
+  "vegetarian": "Vegetarian"
+}

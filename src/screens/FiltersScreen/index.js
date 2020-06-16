@@ -1,4 +1,5 @@
 import React, { useCallback, useLayoutEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Text, View } from 'react-native';
 import Toast from 'react-native-root-toast';
 import { useDispatch } from 'react-redux';
@@ -8,6 +9,8 @@ import { setFilters } from '../../store/actions/meals';
 import styles from './styles';
 
 function FiltersScreen({ navigation }) {
+  const { t, i18n } = useTranslation();
+
   const [isGlutenFree, setIsGlutenFree] = useState(false);
   const [isLactoseFree, setIsLactoseFree] = useState(false);
   const [isVegan, setIsVegan] = useState(false);
@@ -24,8 +27,8 @@ function FiltersScreen({ navigation }) {
     };
 
     dispatch(setFilters(appliedFilters));
-    Toast.show('Filters updated!');
-  }, [isGlutenFree, isLactoseFree, isVegan, isVegetarian, dispatch]);
+    Toast.show(t('Filters updated!'));
+  }, [isGlutenFree, isLactoseFree, isVegan, isVegetarian, dispatch, t]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -40,22 +43,22 @@ function FiltersScreen({ navigation }) {
     <View style={styles.screen}>
       <Text style={styles.title}>Available Filters / Restrictions</Text>
       <FilterSwitch
-        label="Gluten-free"
+        label={t('gluten_free')}
         value={isGlutenFree}
         onChange={newValue => setIsGlutenFree(newValue)}
       />
       <FilterSwitch
-        label="Lactose-free"
+        label={t('lactose_free')}
         value={isLactoseFree}
         onChange={newValue => setIsLactoseFree(newValue)}
       />
       <FilterSwitch
-        label="Vegan"
+        label={t('vegan')}
         value={isVegan}
         onChange={newValue => setIsVegan(newValue)}
       />
       <FilterSwitch
-        label="Vegetarian"
+        label={t('vegetarian')}
         value={isVegetarian}
         onChange={newValue => setIsVegetarian(newValue)}
       />

@@ -1,4 +1,5 @@
 import React, { useLayoutEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FlatList, SafeAreaView, Text } from 'react-native';
 import { useSelector } from 'react-redux';
 import HeaderButton from '../../components/HeaderButton';
@@ -6,6 +7,8 @@ import MealItem from '../../components/MealItem';
 import styles from './styles';
 
 function FavoritesScreen({ navigation }) {
+  const { t, i18n } = useTranslation();
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
@@ -19,9 +22,7 @@ function FavoritesScreen({ navigation }) {
   if (favoriteMeals.length === 0 || !favoriteMeals) {
     return (
       <SafeAreaView style={styles.screen}>
-        <Text style={styles.defaultText}>
-          No favorite meals found. Start adding some!
-        </Text>
+        <Text style={styles.defaultText}>{t('no_meals_found')}</Text>
       </SafeAreaView>
     );
   }
