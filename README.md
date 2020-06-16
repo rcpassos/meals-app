@@ -20,3 +20,7 @@ This project was created with **React Native CLI**
 - [react-native-screens](https://github.com/software-mansion/react-native-screens)
 - [Vector Icons](https://github.com/oblador/react-native-vector-icons)
 - [react-native-splash-screen](https://github.com/crazycodeboy/react-native-splash-screen)
+
+## License
+
+MIT
