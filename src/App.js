@@ -2,18 +2,21 @@ import React from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { enableScreens } from 'react-native-screens';
 import { Provider } from 'react-redux';
-import { combineReducers, createStore } from 'redux';
+import { applyMiddleware, combineReducers, createStore } from 'redux';
+import ReduxThunk from 'redux-thunk';
 import './i18n';
 import AppNavigator from './navigation/AppNavigator';
+import categoriesReducer from './store/reducers/categories';
 import mealsReducer from './store/reducers/meals';
 
 enableScreens();
 
 const rootReducer = combineReducers({
   meals: mealsReducer,
+  categories: categoriesReducer,
 });
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 
 export default function App() {
   return (

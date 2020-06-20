@@ -9,5 +9,6 @@
   "gluten_free": "Gluten-free",
   "lactose_free": "Lactose-free",
   "vegan": "Vegan",
-  "vegetarian": "Vegetarian"
+  "vegetarian": "Vegetarian",
+  "error": "Error"
 }

@@ -22,6 +22,7 @@ This project was created with **React Native CLI**
 - [Vector Icons](https://github.com/oblador/react-native-vector-icons)
 - [react-native-splash-screen](https://github.com/crazycodeboy/react-native-splash-screen)
 - [Hermes](https://reactnative.dev/docs/hermes)
+- [Firebase](https://firebase.google.com/)
 
 ## Backlog
 
