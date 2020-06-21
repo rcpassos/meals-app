@@ -1,5 +1,5 @@
 import {
-  FECTHING_CATEGORIES,
+  FETCHING_CATEGORIES,
   FETCH_CATEGORIES_ERROR,
   FETCH_CATEGORIES_SUCCESS,
 } from '../actions/categories';
@@ -12,7 +12,7 @@ const initialState = {
 
 function categoriesReducer(state = initialState, action) {
   switch (action.type) {
-    case FECTHING_CATEGORIES:
+    case FETCHING_CATEGORIES:
       return {
         categories: [],
         error: null,
@@ -26,7 +26,7 @@ function categoriesReducer(state = initialState, action) {
       };
     case FETCH_CATEGORIES_ERROR:
       return {
-        categories: action.categories,
+        categories: [],
         error: action.error,
         loading: false,
       };

@@ -17,6 +17,7 @@ This project was created with **React Native CLI**
 
 - [React Navigation](https://reactnavigation.org/)
 - [Redux](https://redux.js.org/)
+- [Redux Thunk](https://github.com/reduxjs/redux-thunk)
 - [react-i18next](https://react.i18next.com/)
 - [react-native-screens](https://github.com/software-mansion/react-native-screens)
 - [Vector Icons](https://github.com/oblador/react-native-vector-icons)
@@ -26,9 +27,10 @@ This project was created with **React Native CLI**
 
 ## Backlog
 
-- [ ] Fetch data from an API
+- [x] Fetch data from an API
 - [ ] Authentication (Login, Signup and Recover Password)
 - [ ] Save favorite meals through the API
+- [ ] Remove save button from filters (save automatically after change switch state)
 
 ## License
 

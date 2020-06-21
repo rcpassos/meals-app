@@ -1,22 +1,16 @@
 import axios from '../../data/api';
 import Category from '../../models/category';
 
-export const FECTHING_CATEGORIES = 'FECTHING_CATEGORIES';
+export const FETCHING_CATEGORIES = 'FECTCHING_CATEGORIES';
 export const FETCH_CATEGORIES_SUCCESS = 'FETCH_CATEGORIES_SUCCESS';
 export const FETCH_CATEGORIES_ERROR = 'FETCH_CATEGORIES_ERROR';
 
 export function fetchCategories() {
   return async dispatch => {
-    dispatch({ type: FECTHING_CATEGORIES });
-
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
+    dispatch({ type: FETCHING_CATEGORIES });
 
     try {
-      const response = await axios.get('/categories.json', config);
+      const response = await axios.get('/categories.json');
       const data = response.data;
       const categories = [];
 
