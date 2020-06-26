@@ -1,4 +1,9 @@
-import React, { useCallback, useLayoutEffect, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import { Text, View } from 'react-native';
 import Toast from 'react-native-root-toast';
@@ -30,12 +35,15 @@ function FiltersScreen({ navigation }) {
     Toast.show(t('Filters updated!'));
   }, [isGlutenFree, isLactoseFree, isVegan, isVegetarian, dispatch, t]);
 
+  useEffect(() => {
+    saveFilters();
+  }, [isGlutenFree, isLactoseFree, isVegan, isVegetarian, saveFilters]);
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
         <HeaderButton onPress={() => navigation.openDrawer()} iconName="menu" />
       ),
-      headerRight: () => <HeaderButton onPress={saveFilters} iconName="save" />,
     });
   }, [saveFilters, navigation]);
 
