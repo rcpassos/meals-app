@@ -6,12 +6,14 @@ import { applyMiddleware, combineReducers, createStore } from 'redux';
 import ReduxThunk from 'redux-thunk';
 import './i18n';
 import AppNavigator from './navigation/AppNavigator';
+import authReducer from './store/reducers/auth';
 import categoriesReducer from './store/reducers/categories';
 import mealsReducer from './store/reducers/meals';
 
 enableScreens();
 
 const rootReducer = combineReducers({
+  auth: authReducer,
   meals: mealsReducer,
   categories: categoriesReducer,
 });

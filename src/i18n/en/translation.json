@@ -10,5 +10,12 @@
   "lactose_free": "Lactose-free",
   "vegan": "Vegan",
   "vegetarian": "Vegetarian",
-  "error": "Error"
+  "error": "Error",
+  "login": "Login",
+  "signup": "Signup",
+  "fill_form": "Fill the form correctly",
+  "email": "Email",
+  "password": "Password",
+  "confirm_password": "Confirm Password",
+  "create_account": "Create an Account"
 }

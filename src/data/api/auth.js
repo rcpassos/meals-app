@@ -1,6 +1,6 @@
 import axios from 'axios';
 
 export default axios.create({
-  baseURL: 'https://mealsapp-d705d.firebaseio.com/',
+  baseURL: 'https://identitytoolkit.googleapis.com/v1/accounts',
   headers: { 'Content-Type': 'application/json' },
 });

@@ -17,11 +17,13 @@ export function setFilters(filterSettings) {
 }
 
 export function fetchMeals() {
-  return async dispatch => {
+  return async (dispatch, getState) => {
     dispatch({ type: FETCHING_MEALS });
 
     try {
-      const response = await axios.get('/meals.json');
+      const token = getState().auth.token;
+
+      const response = await axios.get(`meals.json?auth=${token}`);
       const data = response.data;
       const meals = [];
 

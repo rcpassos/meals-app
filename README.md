@@ -11,7 +11,8 @@ This project was created with **React Native CLI**
 2. `cd meals-app/`
 3. `npm install`
 4. `npx pod-install ios`
-5. `npm run ios` or `npm run android`
+5. Create an .env file with `AUTH_API_KEY` variable with Firebase API Web Key
+6. `npm run ios` or `npm run android`
 
 ## Dependencies
 
@@ -24,13 +25,17 @@ This project was created with **React Native CLI**
 - [react-native-splash-screen](https://github.com/crazycodeboy/react-native-splash-screen)
 - [Hermes](https://reactnative.dev/docs/hermes)
 - [Firebase](https://firebase.google.com/)
+- [react-native-dotenv](https://github.com/zetachang/react-native-dotenv)
 
 ## Backlog
 
 - [x] Fetch data from an API
-- [ ] Authentication (Login, Signup and Recover Password)
+- [x] Authentication (Login, Signup and Logout)
 - [ ] Save favorite meals through the API
-- [ ] Remove save button from filters (save automatically after change switch state)
+- [ ] Remove save button from filters (save automatically after change a switch state)
+- [ ] Show proper error messages
+- [ ] Check warnings
+- [ ] Authentication (Reset Password)
 
 ## License
 

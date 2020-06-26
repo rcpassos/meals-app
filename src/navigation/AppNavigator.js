@@ -1,19 +1,29 @@
+import AsyncStorage from '@react-native-community/async-storage';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import {
+  createDrawerNavigator,
+  DrawerContentScrollView,
+  DrawerItem,
+  DrawerItemList,
+} from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Text } from 'react-native';
+import { Text, View } from 'react-native';
 import 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { useDispatch, useSelector } from 'react-redux';
 import '../config/StatusBarConfig';
 import Colors from '../constants/Colors';
 import CategoriesScreen from '../screens/CategoriesScreen';
 import CategoryMealsScreen from '../screens/CategoryMealsScreen';
 import FavoritesScreen from '../screens/FavoritesScreen';
 import FiltersScreen from '../screens/FiltersScreen';
+import LoginScreen from '../screens/LoginScreen';
 import MealDetailScreen from '../screens/MealDetailScreen';
+import SignupScreen from '../screens/SignupScreen';
+import { authenticate, logout } from '../store/actions/auth';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -142,7 +152,39 @@ function TabNavigator() {
   );
 }
 
-export default function AppNavigator() {
+function AuthNavigator() {
+  const { t, i18n } = useTranslation();
+
+  return (
+    <NavigationContainer independent>
+      <Stack.Navigator screenOptions={defaultScreenOptions}>
+        <Stack.Screen
+          name="Login"
+          component={LoginScreen}
+          options={{ title: t('login') }}
+        />
+        <Stack.Screen
+          name="Signup"
+          component={SignupScreen}
+          options={{ title: t('signup') }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
+function CustomDrawerContent(props) {
+  const dispatch = useDispatch();
+
+  return (
+    <DrawerContentScrollView {...props}>
+      <DrawerItemList {...props} />
+      <DrawerItem label="Logout" onPress={() => dispatch(logout())} />
+    </DrawerContentScrollView>
+  );
+}
+
+function DrawerNavigator() {
   const { t, i18n } = useTranslation();
 
   return (
@@ -152,7 +194,8 @@ export default function AppNavigator() {
         drawerContentOptions={{
           activeTintColor: Colors.accentColor,
           labelStyle: { fontFamily: 'OpenSans-Regular', fontWeight: 'normal' },
-        }}>
+        }}
+        drawerContent={props => <CustomDrawerContent {...props} />}>
         <Drawer.Screen
           name="TabNavigator"
           component={TabNavigator}
@@ -166,4 +209,55 @@ export default function AppNavigator() {
       </Drawer.Navigator>
     </NavigationContainer>
   );
+}
+
+export default function AppNavigator() {
+  const [isLoading, setIsLoading] = useState(true);
+  const userToken = useSelector(state => state.auth.token);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    async function bootstrapAsync() {
+      try {
+        const userData = await AsyncStorage.getItem('userData');
+
+        if (!userData) {
+          setIsLoading(false);
+          return;
+        }
+
+        const objUserData = JSON.parse(userData);
+        const {
+          token,
+          userId,
+          expirationDate: expirationDateString,
+        } = objUserData;
+
+        const expirationDate = new Date(expirationDateString);
+
+        if (expirationDate <= new Date() || !token || !userId) {
+          setIsLoading(false);
+          return;
+        }
+
+        setIsLoading(false);
+        dispatch(authenticate(token, userId));
+      } catch (error) {
+        setIsLoading(false);
+      }
+    }
+
+    bootstrapAsync();
+  }, [dispatch]);
+
+  if (isLoading) {
+    return <View />;
+  }
+
+  if (userToken === null) {
+    return <AuthNavigator />;
+  } else {
+    return <DrawerNavigator />;
+  }
 }

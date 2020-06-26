@@ -6,11 +6,13 @@ export const FETCH_CATEGORIES_SUCCESS = 'FETCH_CATEGORIES_SUCCESS';
 export const FETCH_CATEGORIES_ERROR = 'FETCH_CATEGORIES_ERROR';
 
 export function fetchCategories() {
-  return async dispatch => {
+  return async (dispatch, getState) => {
     dispatch({ type: FETCHING_CATEGORIES });
 
     try {
-      const response = await axios.get('/categories.json');
+      const token = getState().auth.token;
+
+      const response = await axios.get(`categories.json?auth=${token}`);
       const data = response.data;
       const categories = [];
 
