@@ -29,13 +29,6 @@ This project was created with **React Native CLI**
 
 ## Backlog
 
-- [x] Fetch data from an API
-- [x] Authentication (Login, Signup and Logout)
-- [x] Remove save button from filters (save automatically after change a switch state)
-- [x] Show proper error messages
-- [x] Check warnings
-- [ ] Authentication (Reset Password)
-
 ## License
 
 MIT
