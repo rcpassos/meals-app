@@ -33,7 +33,7 @@ This project was created with **React Native CLI**
 - [x] Authentication (Login, Signup and Logout)
 - [x] Remove save button from filters (save automatically after change a switch state)
 - [x] Show proper error messages
-- [ ] Check warnings
+- [x] Check warnings
 - [ ] Authentication (Reset Password)
 
 ## License

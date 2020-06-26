@@ -6,8 +6,7 @@ import React, {
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Text, View } from 'react-native';
-import Toast from 'react-native-root-toast';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import FilterSwitch from '../../components/FilterSwitch';
 import HeaderButton from '../../components/HeaderButton';
 import { setFilters } from '../../store/actions/meals';
@@ -16,10 +15,18 @@ import styles from './styles';
 function FiltersScreen({ navigation }) {
   const { t, i18n } = useTranslation();
 
-  const [isGlutenFree, setIsGlutenFree] = useState(false);
-  const [isLactoseFree, setIsLactoseFree] = useState(false);
-  const [isVegan, setIsVegan] = useState(false);
-  const [isVegetarian, setIsVegetarian] = useState(false);
+  const appliedFilters = useSelector(state => state.meals.appliedFilters);
+
+  const [isGlutenFree, setIsGlutenFree] = useState(
+    appliedFilters?.glutenFree || false,
+  );
+  const [isLactoseFree, setIsLactoseFree] = useState(
+    appliedFilters?.lactoseFree || false,
+  );
+  const [isVegan, setIsVegan] = useState(appliedFilters?.vegan || false);
+  const [isVegetarian, setIsVegetarian] = useState(
+    appliedFilters?.vegetarian || false,
+  );
 
   const dispatch = useDispatch();
 
@@ -32,8 +39,16 @@ function FiltersScreen({ navigation }) {
     };
 
     dispatch(setFilters(appliedFilters));
-    Toast.show(t('filters_updated'));
-  }, [isGlutenFree, isLactoseFree, isVegan, isVegetarian, dispatch, t]);
+  }, [isGlutenFree, isLactoseFree, isVegan, isVegetarian, dispatch]);
+
+  useEffect(() => {
+    if (appliedFilters) {
+      setIsGlutenFree(appliedFilters.glutenFree);
+      setIsLactoseFree(appliedFilters.lactoseFree);
+      setIsVegan(appliedFilters.vegan);
+      setIsVegetarian(appliedFilters.vegetarian);
+    }
+  }, [appliedFilters]);
 
   useEffect(() => {
     saveFilters();
@@ -49,7 +64,7 @@ function FiltersScreen({ navigation }) {
 
   return (
     <View style={styles.screen}>
-      <Text style={styles.title}>Available Filters / Restrictions</Text>
+      <Text style={styles.title}>{t('filters_subtitle')}</Text>
       <FilterSwitch
         label={t('gluten_free')}
         value={isGlutenFree}
