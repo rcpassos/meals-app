@@ -241,8 +241,10 @@ export default function AppNavigator() {
           return;
         }
 
+        const expirationTime = expirationDate.getTime() - new Date().getTime();
+
         setIsLoading(false);
-        dispatch(authenticate(token, userId));
+        dispatch(authenticate(token, userId, expirationTime));
       } catch (error) {
         setIsLoading(false);
       }

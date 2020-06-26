@@ -32,7 +32,7 @@ function FiltersScreen({ navigation }) {
     };
 
     dispatch(setFilters(appliedFilters));
-    Toast.show(t('Filters updated!'));
+    Toast.show(t('filters_updated'));
   }, [isGlutenFree, isLactoseFree, isVegan, isVegetarian, dispatch, t]);
 
   useEffect(() => {

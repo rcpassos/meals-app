@@ -13,8 +13,14 @@ export const LOGOUT = 'LOGOUT';
 
 export const CLEAR_ERROR = 'CLEAR_ERROR';
 
-export function authenticate(token, userId) {
-  return { type: AUTHENTICATE, userId, token };
+let logoutTimer;
+
+export function authenticate(token, userId, expiresIn) {
+  return dispatch => {
+    dispatch(setLogoutTimer(expiresIn));
+
+    dispatch({ type: AUTHENTICATE, userId, token });
+  };
 }
 
 export function signup(email, password) {
@@ -32,14 +38,15 @@ export function signup(email, password) {
 
       const data = response.data;
 
+      const expiresIn = parseInt(data.expiresIn, 10) * 1000;
+
+      dispatch(setLogoutTimer(expiresIn));
       dispatch({
         type: AUTHENTICATE,
         token: data.idToken,
         userId: data.localId,
       });
-      const expirationDate = new Date(
-        new Date().getTime() + parseInt(data.expiresIn, 10) * 1000,
-      );
+      const expirationDate = new Date(new Date().getTime() + expiresIn);
       saveDataToStorage(data.idToken, data.localId, expirationDate);
     } catch (error) {
       dispatch({ type: SIGNUP_ERROR, error });
@@ -65,14 +72,15 @@ export function login(email, password) {
 
       const data = response.data;
 
+      const expiresIn = parseInt(data.expiresIn, 10) * 1000;
+
+      dispatch(setLogoutTimer(expiresIn));
       dispatch({
         type: AUTHENTICATE,
         token: data.idToken,
         userId: data.localId,
       });
-      const expirationDate = new Date(
-        new Date().getTime() + parseInt(data.expiresIn) * 1000,
-      );
+      const expirationDate = new Date(new Date().getTime() + expiresIn);
       saveDataToStorage(data.idToken, data.localId, expirationDate);
     } catch (error) {
       dispatch({ type: LOGIN_ERROR, error });
@@ -81,8 +89,23 @@ export function login(email, password) {
 }
 
 export function logout() {
+  clearLogoutTimer();
   AsyncStorage.removeItem('userData');
   return { type: LOGOUT };
+}
+
+function clearLogoutTimer() {
+  if (logoutTimer) {
+    clearTimeout(logoutTimer);
+  }
+}
+
+function setLogoutTimer(expirationTime) {
+  return dispatch => {
+    logoutTimer = setTimeout(() => {
+      dispatch(logout());
+    }, expirationTime);
+  };
 }
 
 export function clearError() {
