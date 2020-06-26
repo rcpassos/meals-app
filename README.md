@@ -32,7 +32,7 @@ This project was created with **React Native CLI**
 - [x] Fetch data from an API
 - [x] Authentication (Login, Signup and Logout)
 - [x] Remove save button from filters (save automatically after change a switch state)
-- [ ] Show proper error messages
+- [x] Show proper error messages
 - [ ] Check warnings
 - [ ] Authentication (Reset Password)
 

@@ -49,7 +49,7 @@ export function signup(email, password) {
       const expirationDate = new Date(new Date().getTime() + expiresIn);
       saveDataToStorage(data.idToken, data.localId, expirationDate);
     } catch (error) {
-      dispatch({ type: SIGNUP_ERROR, error });
+      dispatch(errorHandler(error));
     }
   };
 }
@@ -83,8 +83,28 @@ export function login(email, password) {
       const expirationDate = new Date(new Date().getTime() + expiresIn);
       saveDataToStorage(data.idToken, data.localId, expirationDate);
     } catch (error) {
-      dispatch({ type: LOGIN_ERROR, error });
+      dispatch(errorHandler(error));
     }
+  };
+}
+
+function errorHandler(error) {
+  let errorMessage = '';
+
+  if (error.response) {
+    // Request made and server responded
+    errorMessage = error.response.data.error.message;
+  } else if (error.request) {
+    // The request was made but no response was received
+    errorMessage = error.request;
+  } else {
+    // Something happened in setting up the request that triggered an Error
+    errorMessage = error.message;
+  }
+
+  return {
+    type: SIGNUP_ERROR,
+    error: errorMessage,
   };
 }
 

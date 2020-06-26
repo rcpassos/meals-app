@@ -28,7 +28,7 @@ function SignupScreen() {
   useEffect(() => {
     if (error) {
       dispatch(clearError());
-      Alert.alert(t('error'), error.message);
+      Alert.alert(t('error'), error);
     }
   }, [error, t, dispatch]);
 
